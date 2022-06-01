@@ -8,8 +8,18 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.css" integrity="sha384-A3N+UgNMKg9+LRsC2HUE0ECxFY7qhztVFORxHQZEPm7lnog2poqmm7CQ91wSEnBc" crossorigin="anonymous">
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.js" integrity="sha384-D0gipC03W+lifpletIVjX+11DUvrzNAMhVux0JrrAMt9Ufgu9HcPdS5GxZSDmNxx" crossorigin="anonymous"></script>
         <script type="text/javascript" src="scripts.js"></script>
-        <title>Jeopardy!</title>
+        <title>Volume Game</title>
     </head>
-    <body onload="start();">
+    <body onload="">
+        <div>
+            <h>Guess the Volume</h>
+        </div>
+        <div>
+            <button onclick="guess(0);"><image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Cuboid_no_label.svg/1200px-Cuboid_no_label.svg.png" alt="Volume" width="100" height="100"></button>
+            <button onclick="guess(1);"><image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Cuboid_no_label.svg/1200px-Cuboid_no_label.svg.png" alt="Volume" width="100" height="100"></button>
+        </div>
+        <p id="accuracy">Accuracy: 0%</p>
+        <p id="tries">Tries: 0</p>
+        <p id="num_correct">Number Correct: 0</p>
     </body>
 </html>
