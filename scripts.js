@@ -93,8 +93,8 @@ function guess(num) {
     cube1 = createCube(item2);
     cube1.position.set(0, 0, -7.0);
     scene1.add(cube1);
-    cube1.rotation.y -= 0.4;
-    cube1.rotation.x += 0.3;
+    cube1.rotation.y -= 0.5;
+    cube1.rotation.x += 0.5;
 
     renderScene0();
     renderScene1();
@@ -112,12 +112,12 @@ function guess(num) {
 
 function createCube(vals) {
     var cubeMaterials = [
-        new THREE.MeshBasicMaterial({color:0x2173fd}),
-        new THREE.MeshBasicMaterial({color:0xd5d918}),
-        new THREE.MeshBasicMaterial({color:0xd2dbeb}),
-        new THREE.MeshBasicMaterial({color:0xa3a3c6}),
-        new THREE.MeshBasicMaterial({color:0xfe6b9f}),
-        new THREE.MeshDepthMaterial({color:0x856af9})
+        new THREE.MeshBasicMaterial({color:0xFF00FF}),
+        new THREE.MeshBasicMaterial({color:0x393CCE}),
+        new THREE.MeshBasicMaterial({color:0x34F4F4}),
+        new THREE.MeshBasicMaterial({color:0xFF00FF}),
+        new THREE.MeshBasicMaterial({color:0x393CCE}),
+        new THREE.MeshBasicMaterial({color:0x34F4F4}),
     ];
 
     var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
@@ -150,8 +150,8 @@ function startScene0() {
 
     cube0.position.set(0, 0, -7.0);
     scene0.add(cube0);
-    cube0.rotation.y -= 0.4;
-    cube0.rotation.x += 0.3;
+    cube0.rotation.y -= 0.5;
+    cube0.rotation.x += .5;
 }
 
 function startScene1() {
