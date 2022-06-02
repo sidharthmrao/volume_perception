@@ -105,9 +105,17 @@ function guess(num) {
     if (num == correct) {
         console.log("CORRECT");
         num_correct+=1;
+        document.getElementById("canvas"+num).style.border = "5px solid lime";
+        setTimeout(function () {
+            document.getElementById("canvas"+num).style.border = "5px solid black";
+        }, 300);
     } else {
         console.log("Correct was: " + correct);
         console.log("You guessed: " + num);
+        document.getElementById("canvas"+num).style.border = "5px solid red";
+        setTimeout(function () {
+            document.getElementById("canvas"+num).style.border = "5px solid black";
+        }, 300);
     }
     accuracy = Math.round((num_correct/tries)*100);
     
@@ -200,7 +208,7 @@ function startScene0() {
     cube0.position.set(0, 0, -7.0);
     scene0.add(cube0);
     cube0.rotation.y -= 0.5;
-    cube0.rotation.x += .5;
+    cube0.rotation.x += 0.5;
 }
 
 function startScene1() {

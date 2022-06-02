@@ -1,0 +1,13 @@
+#canvas0 {
+    border: 5px solid lime;
+}
+
+#canvas1 {
+    border: 5px solid lime;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid yellow;
+    display:inline-block; 
+}  
