@@ -10,14 +10,17 @@ let cube1;
 let camera0;
 let camera1;
 
+let item1;
+let item2;
+let old1;
+let old2;
+
 let items = [[1, 1, 1], [1, 2, 1], [3, 2, .5], [1, 1, 2], [4,3,.2]];
 
-function volume() {
+function volume(arr) {
     //calculate the volume of a 3 dimensional array
     let volume = 0;
-    for (let i = 0; i < items.length; i++) {
-        volume += items[i][0] * items[i][1] * items[i][2];
-    }
+    volume += arr[0] * arr[1] * arr[2];
     return volume;
 }
 
@@ -25,7 +28,10 @@ function setCorrect(arr0, arr1) {
     //compare the volume of the two arrays and set "correct" to the larger one
     let vol0 = volume(arr0);
     let vol1 = volume(arr1);
-    if (vol0 > vol1) {
+
+    console.log(vol0);
+    console.log(vol1);
+    if (vol0 >= vol1) {
         correct = 0;
     } else {
         correct = 1;
@@ -34,14 +40,17 @@ function setCorrect(arr0, arr1) {
 
 function start() {
 
-    let item1 = items[Math.floor(Math.random()*items.length)];
-    let item2 = items[Math.floor(Math.random()*items.length)];
+    item1 = items[Math.floor(Math.random()*items.length)];
+    item2 = items[Math.floor(Math.random()*items.length)];
 
     while (item1 == item2) {
         item1 = items[Math.floor(Math.random()*items.length)];
         item2 = items[Math.floor(Math.random()*items.length)];
         console.log("same");
     }
+
+    old1 = item1;
+    old2 = item2;
 
     setCorrect(item1, item2);
 
@@ -59,15 +68,21 @@ function guess(num) {
     scene0.remove(cube0);
     scene1.remove(cube1);
 
-    let item1 = items[Math.floor(Math.random()*items.length)];
-    let item2 = items[Math.floor(Math.random()*items.length)];
+    item1 = items[Math.floor(Math.random()*items.length)];
+    item2 = items[Math.floor(Math.random()*items.length)];
 
-    while (item1 == item2) {
+    while (item1 == item2 || item1 == old1 || item2 == old2) {
         item1 = items[Math.floor(Math.random()*items.length)];
         item2 = items[Math.floor(Math.random()*items.length)];
+        console.log("same");
     }
 
+    old1 = item1;
+    old2 = item2;
+
     setCorrect(item1, item2);
+
+    console.log(correct);
 
     cube0 = createCube(item1);
     cube0.position.set(0, 0, -7.0);
