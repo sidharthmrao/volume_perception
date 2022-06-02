@@ -15,12 +15,15 @@ let item2;
 let old1;
 let old2;
 
-let items = [[1, 1, 1], [1, 2, 1], [3, 2, .5], [1, 1, 2], [4,3,.2]];
+let mode = "hard"; // easy, medium, hard
+
+function generateDims() {
+    return [Math.random()*2.5+1, Math.random()*2.5+1, Math.random()*2.5+1];
+}
 
 function volume(arr) {
     //calculate the volume of a 3 dimensional array
-    let volume = 0;
-    volume += arr[0] * arr[1] * arr[2];
+    let volume = arr[0] * arr[1] * arr[2];
     return volume;
 }
 
@@ -29,25 +32,42 @@ function setCorrect(arr0, arr1) {
     let vol0 = volume(arr0);
     let vol1 = volume(arr1);
 
-    console.log(vol0);
-    console.log(vol1);
     if (vol0 >= vol1) {
         correct = 0;
     } else {
         correct = 1;
     }
+
+    console.log(arr0, vol0);
+    console.log(arr1, vol1);
+
+}
+
+function genCubes() {
+    item1 = generateDims();
+    item2 = generateDims();
+
+    if (mode == "hard") {
+        while (item1 == item2 || Math.abs(volume(item1)-volume(item2))>5 || item1 == old1 || item2 == old2) {
+            item1 = generateDims();
+            item2 = generateDims();
+            console.log("refresh");
+        }
+    } else {
+        while (item1 == item2 || item1 == old1 || item2 == old2) {
+            item1 = generateDims();
+            item2 = generateDims();
+            console.log("refresh");
+        }
+    }
 }
 
 function start() {
 
-    item1 = items[Math.floor(Math.random()*items.length)];
-    item2 = items[Math.floor(Math.random()*items.length)];
+    old1 = [0,0,0];
+    old2 = [0,0,0];
 
-    while (item1 == item2) {
-        item1 = items[Math.floor(Math.random()*items.length)];
-        item2 = items[Math.floor(Math.random()*items.length)];
-        console.log("same");
-    }
+    genCubes();
 
     old1 = item1;
     old2 = item2;
@@ -61,21 +81,41 @@ function start() {
     cube1 = createCube(item2);
     startScene1();
     renderScene1();
+
+    if (mode=="hard") {
+        setTimeout(function () {
+            scene0.remove(cube0);
+            scene1.remove(cube1);
+            renderScene0();
+            renderScene1();
+        }, 400);
+    } else if (mode=="medium") {
+        setTimeout(function () {
+            scene0.remove(cube0);
+            scene1.remove(cube1);
+            renderScene0();
+            renderScene1();
+        }, 700);
+    }
 }
 
 function guess(num) {
 
-    scene0.remove(cube0);
-    scene1.remove(cube1);
-
-    item1 = items[Math.floor(Math.random()*items.length)];
-    item2 = items[Math.floor(Math.random()*items.length)];
-
-    while (item1 == item2 || item1 == old1 || item2 == old2) {
-        item1 = items[Math.floor(Math.random()*items.length)];
-        item2 = items[Math.floor(Math.random()*items.length)];
-        console.log("same");
+    tries+=1;
+    if (num == correct) {
+        console.log("CORRECT");
+        num_correct+=1;
+    } else {
+        console.log("Correct was: " + correct);
+        console.log("You guessed: " + num);
     }
+    accuracy = Math.round((num_correct/tries)*100);
+    
+    document.getElementById("accuracy").innerHTML = "Accuracy: "+accuracy+"%";
+    document.getElementById("tries").innerHTML = "Tries: "+tries;
+    document.getElementById("num_correct").innerHTML = "Number Correct: "+num_correct;
+
+    genCubes();
 
     old1 = item1;
     old2 = item2;
@@ -83,6 +123,9 @@ function guess(num) {
     setCorrect(item1, item2);
 
     console.log(correct);
+
+    scene0.remove(cube0);
+    scene1.remove(cube1);
 
     cube0 = createCube(item1);
     cube0.position.set(0, 0, -7.0);
@@ -99,15 +142,21 @@ function guess(num) {
     renderScene0();
     renderScene1();
 
-    tries+=1;
-    if (num == correct) {
-        num_correct+=1;
+    if (mode=="hard") {
+        setTimeout(function () {
+            scene0.remove(cube0);
+            scene1.remove(cube1);
+            renderScene0();
+            renderScene1();
+        }, 400);
+    } else if (mode=="medium") {
+        setTimeout(function () {
+            scene0.remove(cube0);
+            scene1.remove(cube1);
+            renderScene0();
+            renderScene1();
+        }, 700);
     }
-    accuracy = Math.round((num_correct/tries)*100);
-    
-    document.getElementById("accuracy").innerHTML = "Accuracy: "+accuracy+"%";
-    document.getElementById("tries").innerHTML = "Tries: "+tries;
-    document.getElementById("num_correct").innerHTML = "Number Correct: "+num_correct;
 }
 
 function createCube(vals) {
@@ -120,7 +169,7 @@ function createCube(vals) {
         new THREE.MeshBasicMaterial({color:0x34F4F4}),
     ];
 
-    var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+    var cubeMaterial = new THREE.MultiMaterial(cubeMaterials);
     var cubeGeometry = new THREE.BoxGeometry(vals[0], vals[1], vals[2]);
 
     cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -176,8 +225,8 @@ function startScene1() {
 
     cube1.position.set(0, 0, -7.0);
     scene1.add(cube1);
-    cube1.rotation.y -= 0.4;
-    cube1.rotation.x += 0.3;
+    cube1.rotation.y -= 0.5;
+    cube1.rotation.x += 0.5;
 }
 
 function renderScene0() {
