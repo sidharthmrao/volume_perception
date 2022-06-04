@@ -11,3 +11,11 @@
     border: 2px solid yellow;
     display:inline-block; 
 }  
+
+.text {
+    color: white;
+}
+
+body {
+    background-color: black;
+}
