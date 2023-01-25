@@ -15,7 +15,7 @@ let item2;
 let old1;
 let old2;
 
-let mode = "hard"; // easy, medium, hard
+let mode = "medium"; // easy, medium, hard
 
 function generateDims() {
     return [Math.random()*2.5+1, Math.random()*2.5+1, Math.random()*2.5+1];
